@@ -13,13 +13,11 @@ class AntCarousel extends Component {
           data={[1, 2, 3]}
           loop={true}
           firstItem={1}
-          loopClonesPerSide={100}
+          loopClonesPerSide={10}
           renderItem={() => <AntImage />}
-          sliderWidth={350}
-          itemWidth={120}
+          sliderWidth={400}
+          itemWidth={100}
           autoplay={true}
-          autoplayDelay={0}
-          autoplayInterval={100}
         />
       </View>
     );

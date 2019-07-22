@@ -8,7 +8,34 @@ Now go forth and make millions
 
 ## Running the app
 
-Use `react-native start` to start the packager, and then use `react-native run-ios` or `react-native run-android` to run on your desired platform.
+1. Clone the repo and enter the directory:
+```
+$ git clone https://github.com/myklam/AntRaces.git
+$ cd AntRaces
+```
+2. Install dependencies
+```
+$ yarn install
+```
+3. Install pods
+```
+$ cd ios
+$ pod install
+$ cd ..
+```
+4. Start the packager
+```
+$ react-native start
+```
+5. Run the app (in a new terminal window)
+__iOS__
+```
+$ react-native run-ios
+```
+__Android__ (You will need to have emulator running or device connected)
+```
+$ react-native run-android
+```
 
 ## Notes
 
