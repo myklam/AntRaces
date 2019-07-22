@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { View, Text } from "react-native";
 
 import TableHeaders from "../TableHeaders";
 import AntRow from "../AntRow";
-import BigButton from "../../components/BigButton";
 
 class AntsTable extends Component {
   constructor(props) {
@@ -51,7 +49,6 @@ class AntsTable extends Component {
             onCalculationFinished={this.onCalculationFinished}
           />
         ))}
-        <BigButton label="RECALCULATE" />
       </Fragment>
     );
   }

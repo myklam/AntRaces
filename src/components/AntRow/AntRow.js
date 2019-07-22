@@ -21,6 +21,7 @@ class AntRow extends Component {
       this.props.onCalculationFinished(this.props.ant.name, result.toFixed(2));
     });
   };
+
   render() {
     const { status } = this.state;
     const { odds } = this.props.ant;
