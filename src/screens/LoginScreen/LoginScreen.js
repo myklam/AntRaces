@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import BigButton from "../../components/BigButton";
 import FormInput from "../../components/FormInput";
@@ -7,22 +8,103 @@ import LoginSwitcher from "../../components/LoginSwitcher";
 
 class LoginScreen extends Component {
   state = {
-    activeSwitch: "login"
+    activeSwitch: "login",
+    username: "",
+    password: "",
+    passwordConfirmation: "",
+    error: null
   };
 
+  signUp = async () => {
+    const { username, password, passwordConfirmation } = this.state;
+
+    if (!username) {
+      this.setState({ error: "You must supply a username" });
+      return;
+    }
+
+    if (password !== passwordConfirmation) {
+      this.setState({ error: "Hmmm, looks like your passwords do not match" });
+      return;
+    }
+
+    try {
+      const usernameArr = ["@username", username];
+      const passwordArr = ["@password", password];
+      const loggedInArr = ["@loggedIn", true];
+      await AsyncStorage.multiSet([usernameArr, passwordArr, loggedInArr]);
+      this.props.navigation.navigate("AntStats");
+    } catch (error) {
+      this.setState({ error: "There was an error signing you up" });
+      return;
+    }
+  };
+
+  logIn = async () => {
+    const { username, password } = this.state;
+
+    try {
+      const [usernameArr, passwordArr] = await AsyncStorage.multiGet([
+        "@username",
+        "@password"
+      ]);
+      const [usernameKey, storedUsername] = usernameArr;
+      const [passwordKey, storedPassword] = passwordArr;
+
+      if (username !== storedUsername || password !== storedPassword) {
+        this.setState({ error: "Username/password not recognized" });
+        return;
+      }
+
+      await AsyncStorage.setItem("@loggedIn", true);
+      this.props.navigation.navigate("AntStats");
+    } catch (error) {
+      this.setState("There was an error logging you in");
+      return;
+    }
+  };
+
+  onPressButton = () => {
+    this.state.activeSwitch === "login" ? this.logIn() : this.signUp();
+  };
   render() {
-    const { activeSwitch } = this.state;
+    const {
+      activeSwitch,
+      error,
+      username,
+      password,
+      passwordConfirmation
+    } = this.state;
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
           {activeSwitch === "login" ? "Log In" : "Sign Up"}
         </Text>
-        <FormInput placeholder="username" />
-        <FormInput placeholder="password" secureTextEntry={true} />
+        <FormInput
+          placeholder="username"
+          value={username}
+          onChangeText={val => this.setState({ username: val })}
+        />
+        <FormInput
+          placeholder="password"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={val => this.setState({ password: val })}
+        />
         {activeSwitch === "signup" && (
-          <FormInput placeholder="password again" secureTextEntry={true} />
+          <FormInput
+            placeholder="password again"
+            secureTextEntry={true}
+            value={passwordConfirmation}
+            onChangeText={val => this.setState({ passwordConfirmation: val })}
+          />
         )}
-        <BigButton label={activeSwitch === "login" ? "Log In" : "Sign Up"} />
+        {error && <Text style={styles.error}>{error}</Text>}
+        <BigButton
+          label={activeSwitch === "login" ? "Log In" : "Sign Up"}
+          onPress={this.onPressButton}
+        />
         <LoginSwitcher
           activeSwitch={activeSwitch}
           onPress={switcher => this.setState({ activeSwitch: switcher })}
@@ -40,6 +122,9 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 26
+  },
+  error: {
+    color: "red"
   }
 });
 export default LoginScreen;
