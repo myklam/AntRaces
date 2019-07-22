@@ -11,6 +11,8 @@ import { gql } from "apollo-boost";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
+import TableHeaders from "../../components/TableHeaders";
+
 class AntStatsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -63,11 +65,11 @@ class AntStatsScreen extends Component {
             );
           }
 
-          return data.ants.map(ant => (
-            <Text>
-              {ant.name} is {ant.color}
-            </Text>
-          ));
+          return (
+            <View style={styles.container}>
+              <TableHeaders />
+            </View>
+          )
         }}
       </Query>
     );
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "flex-start"
   },
   logInBtn: {
     marginRight: 10

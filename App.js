@@ -5,6 +5,10 @@ import { ApolloProvider } from "react-apollo";
 
 import MainNavigator from "./src/navigation/MainNavigator";
 
+if (__DEV__) {
+  import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
+}
+
 const client = new ApolloClient({
   uri: "https://antserver-blocjgjbpw.now.sh/graphql"
 });

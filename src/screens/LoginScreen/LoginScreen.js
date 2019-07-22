@@ -18,7 +18,7 @@ class LoginScreen extends Component {
   async componentDidMount() {
     try {
       const loggedIn = await AsyncStorage.getItem("@loggedIn");
-      if (loggedIn) {
+      if (JSON.parse(loggedIn)) {
         this.props.navigation.navigate("AntStats");
       }
     } catch (error) {
@@ -42,11 +42,12 @@ class LoginScreen extends Component {
     try {
       const usernameArr = ["@username", username];
       const passwordArr = ["@password", password];
-      const loggedInArr = ["@loggedIn", true];
+      const loggedInArr = ["@loggedIn", JSON.stringify(true)];
       await AsyncStorage.multiSet([usernameArr, passwordArr, loggedInArr]);
       this.props.navigation.navigate("AntStats");
     } catch (error) {
       this.setState({ error: "There was an error signing you up" });
+      console.tron.log(error)
       return;
     }
   };
@@ -67,7 +68,7 @@ class LoginScreen extends Component {
         return;
       }
 
-      await AsyncStorage.setItem("@loggedIn", true);
+      await AsyncStorage.setItem("@loggedIn", JSON.stringify(true));
       this.props.navigation.navigate("AntStats");
     } catch (error) {
       this.setState("There was an error logging you in");
@@ -78,6 +79,7 @@ class LoginScreen extends Component {
   onPressButton = () => {
     this.state.activeSwitch === "login" ? this.logIn() : this.signUp();
   };
+
   render() {
     const {
       activeSwitch,
@@ -87,6 +89,9 @@ class LoginScreen extends Component {
       passwordConfirmation
     } = this.state;
 
+    console.tron.log(username)
+    console.tron.log(password)
+    console.tron.log(passwordConfirmation)
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
