@@ -15,6 +15,17 @@ class LoginScreen extends Component {
     error: null
   };
 
+  async componentDidMount() {
+    try {
+      const loggedIn = await AsyncStorage.getItem("@loggedIn");
+      if (loggedIn) {
+        this.props.navigation.navigate("AntStats");
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
   signUp = async () => {
     const { username, password, passwordConfirmation } = this.state;
 
