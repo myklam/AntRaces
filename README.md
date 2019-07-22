@@ -28,11 +28,11 @@ $ cd ..
 $ react-native start
 ```
 5. Run the app (in a new terminal window)
-* __iOS__
+#### __iOS__
 ```
 $ react-native run-ios
 ```
-* __Android__ (You will need to have emulator running or device connected)
+#### __Android__ (You will need to have emulator running or device connected)
 ```
 $ react-native run-android
 ```
