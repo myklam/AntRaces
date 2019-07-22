@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import { View, StyleSheet } from "react-native";
 
 import TableHeaders from "../TableHeaders";
 import AntRow from "../AntRow";
@@ -40,7 +41,7 @@ class AntsTable extends Component {
   render() {
     const { ants } = this.state;
     return (
-      <Fragment>
+      <View style={styles.container}>
         <TableHeaders />
         {ants.map(ant => (
           <AntRow
@@ -49,9 +50,16 @@ class AntsTable extends Component {
             onCalculationFinished={this.onCalculationFinished}
           />
         ))}
-      </Fragment>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "flex-start",
+    maxWidth: "90%"
+  }
+});
 
 export default AntsTable;
