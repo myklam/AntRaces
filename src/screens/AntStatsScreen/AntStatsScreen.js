@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import { Query } from "react-apollo";
 import { gql } from "apollo-boost";
-
 import AsyncStorage from "@react-native-community/async-storage";
 
-import TableHeaders from "../../components/TableHeaders";
+import AntsTable from "../../components/AntsTable";
+import AntCarousel from "../../components/AntCarousel";
 
 class AntStatsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,9 +42,6 @@ class AntStatsScreen extends Component {
           {
             ants {
               name
-              color
-              length
-              weight
             }
           }
         `}
@@ -67,9 +64,10 @@ class AntStatsScreen extends Component {
 
           return (
             <View style={styles.container}>
-              <TableHeaders />
+              <AntsTable ants={data.ants} />
+              <AntCarousel />
             </View>
-          )
+          );
         }}
       </Query>
     );
