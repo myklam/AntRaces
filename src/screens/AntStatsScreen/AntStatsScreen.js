@@ -27,7 +27,7 @@ class AntStatsScreen extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>AntStatsScreen</Text>
       </View>
     );
@@ -35,6 +35,11 @@ class AntStatsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   logInBtn: {
     marginRight: 10
   }
