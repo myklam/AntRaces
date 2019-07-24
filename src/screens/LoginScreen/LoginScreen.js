@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import BigButton from "../../components/BigButton";
@@ -12,11 +12,13 @@ class LoginScreen extends Component {
     username: "",
     password: "",
     passwordConfirmation: "",
-    error: null
+    error: null,
+    loading: false
   };
 
   async componentDidMount() {
     try {
+      this.setState({ loading: true });
       const loggedIn = await AsyncStorage.getItem("@loggedIn");
       if (JSON.parse(loggedIn)) {
         this.props.navigation.navigate("AntStats");
@@ -47,7 +49,7 @@ class LoginScreen extends Component {
       this.props.navigation.navigate("AntStats");
     } catch (error) {
       this.setState({ error: "There was an error signing you up" });
-      console.tron.log(error)
+      console.tron.log(error);
       return;
     }
   };
@@ -89,9 +91,14 @@ class LoginScreen extends Component {
       passwordConfirmation
     } = this.state;
 
-    console.tron.log(username)
-    console.tron.log(password)
-    console.tron.log(passwordConfirmation)
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator />
+        </View>
+      )
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>

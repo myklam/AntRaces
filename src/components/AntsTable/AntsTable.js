@@ -58,6 +58,7 @@ class AntsTable extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "flex-start",
+    marginHorizontal: 5,
     maxWidth: "90%"
   }
 });

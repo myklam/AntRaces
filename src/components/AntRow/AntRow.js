@@ -31,8 +31,12 @@ class AntRow extends Component {
         <Text style={styles.text} numberOfLines={2}>
           {this.props.ant.name}
         </Text>
-        <Text style={styles.text}>{status}</Text>
-        <Text style={styles.text}>{odds}</Text>
+        <View style={styles.centeredText}>
+          <Text style={[styles.text, styles.centeredText]}>{status}</Text>
+        </View>
+        <View style={styles.centeredText}>
+          <Text style={styles.text}>{odds}</Text>
+        </View>
       </View>
     );
   }
@@ -44,12 +48,17 @@ const styles = StyleSheet.create({
     borderBottomColor: "#888",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "90%",
-    marginVertical: 5
+    marginVertical: 5,
+    marginHorizontal: 5
   },
   text: {
     fontSize: 13,
-    maxWidth: "33%"
+    flex: 1
+  },
+  centeredText: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 

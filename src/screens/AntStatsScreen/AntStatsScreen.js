@@ -49,7 +49,7 @@ class AntStatsScreen extends Component {
         {({ loading, error, data }) => {
           if (loading) {
             return (
-              <View style={styles.container}>
+              <View style={styles.loadingContainer}>
                 <ActivityIndicator />
               </View>
             );
@@ -82,6 +82,11 @@ const styles = StyleSheet.create({
   },
   logInBtn: {
     marginRight: 10
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

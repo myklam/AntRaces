@@ -16,12 +16,14 @@ const styles = StyleSheet.create({
 
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "90%",
+    width: "100%",
     marginVertical: 15
   },
   text: {
     fontSize: 15,
-    fontWeight: "600"
+    fontWeight: "600",
+    flex: 1,
+    textAlign: "center"
   }
 });
 
